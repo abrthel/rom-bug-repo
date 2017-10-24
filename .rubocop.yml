@@ -1,0 +1,180 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+Rails:
+  Enabled: false
+
+
+# End of line characters should be consistent.
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Lint/AssignmentInCondition:
+  AllowSafeAssignment: false
+
+# Suppressing exceptions can be perfectly fine, and be it to avoid to
+# explicitly type nil into the rescue since that's what you want to return,
+# or suppressing LoadError for optional dependencies
+Lint/HandleExceptions:
+  Enabled: false
+
+# Shadowing outer local variables with block parameters is often useful
+# to not reinvent a new name for the same thing, it highlights the relation
+# between the outer variable and the parameter. The cases where it's actually
+# confusing are rare, and usually bad for other reasons already, for example
+# because the method is too long.
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+# Don't leave a debugger statement lying around.
+Lint/Debugger:
+  Enabled: true
+
+# Commonly used screens these days easily fit more than 80 characters.
+Metrics/LineLength:
+  Max: 120
+
+# Too short methods lead to extraction of single-use methods, which can make
+# the code easier to read (by naming things), but can also clutter the class
+Metrics/MethodLength:
+  Max: 20
+
+# The guiding principle of classes is SRP, SRP can't be accurately measured by LoC
+Metrics/ClassLength:
+  Max: 1500
+
+# Gets in the way more than it helps. Many tools use Block style DSLs which act like executable
+# classes.
+Metrics/BlockLength:
+  Enabled: false
+
+# Most readable form.
+Layout/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+# Can prevent parameters from aligning in the most visually pleasing way
+# eg. Exceptions with the message on a new line
+Layout/AlignParameters:
+  Enabled: false
+
+# Don't like the style. Would rather the indentation align with the opening
+# method
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+# Gets in the way of method signatures with named params
+Layout/FirstParameterIndentation:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+# Indenting the chained dots beneath each other is not supported by this cop,
+# see https://github.com/bbatsov/rubocop/issues/1633
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+# No space makes the method definition shorter and differentiates
+# from a regular assignment.
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+# The space here provides no real gain in readability while consuming
+# horizontal space that could be used for a better parameter name.
+# Also {| differentiates better from a hash than { | does.
+Layout/SpaceInsideBlockBraces:
+  SpaceBeforeBlockParameters: false
+
+# No trailing space differentiates better from the block:
+# foo} means hash, foo } means block.
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+# Cleanup trailing whitespaces
+Layout/TrailingWhitespace:
+  Enabled: false
+
+
+# Single quotes being faster is hardly measurable and only affects parse time.
+# However I personally like the style much better than double quotes.
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# [:one, :two] is more readable / understandable than %i(one two)
+Style/SymbolArray:
+  Enabled: false
+
+
+# Mixing the styles looks just silly.
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+# # has_key? and has_value? are far more readable than key? and value?
+# Style/DeprecatedHashMethods:
+#   Enabled: false
+
+# String#% is by far the least verbose and only object oriented variant.
+Style/FormatString:
+  EnforcedStyle: percent
+
+# Either allow this style or don't. Marking it as safe with parenthesis
+# is silly. Let's try to live without them for now.
+Style/ParenthesesAroundCondition:
+  AllowSafeAssignment: false
+
+# A specialized exception class will take one or more arguments and construct the message from it.
+# So both variants make sense.
+Style/RaiseArgs:
+  Enabled: false
+
+# Fail is an alias of raise. Avoid aliases, it's more cognitive load for no gain.
+# The argument that fail should be used to abort the program is wrong too,
+# there's Kernel#abort for that.
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+# good: get :index, { param: 'something' }, { session_value: 'abcd' }
+# bad: get :index, { param: 'something' }, session_value: 'abcd'
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+
+# { ... } for multi-line blocks is okay, follow Weirichs rule instead:
+# https://web.archive.org/web/20140221124509/http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc
+Style/BlockDelimiters:
+  Enabled: false
+
+# do / end blocks should be used for side effects,
+# methods that run a block for side effects and have
+# a useful return value are rare, assign the return
+# value to a local variable for those cases.
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+
+# Enforcing the names of variables? To single letter ones? Just no.
+Style/SingleLineBlockParams:
+  Enabled: false
+
+# Check with yard instead.
+Style/Documentation:
+  Enabled: false
+
+# Style preference
+Style/MethodDefParentheses:
+  Enabled: false
+
+# Nested style is arguably safer, personally I find compact to read better.
+Style/ClassAndModuleChildren:
+  Enabled: true
+  EnforcedStyle: nested
+
+# Very annoying cop that I just turn off.
+#
+# Comment in question:
+# frozen_string_literal: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+  EnforcedStyle: when_needed
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self

@@ -1,0 +1,10 @@
+*.log
+*.gem
+.DS_Store
+/pkg
+Gemfile.lock
+.bundle
+.yardoc
+doc
+.byebug_history
+tmp/*
